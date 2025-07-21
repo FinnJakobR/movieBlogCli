@@ -31,6 +31,7 @@ type MovieBlogMovie struct {
 type MovieBlogArticle struct {
 	Title string `json:"title"`
 	Body string `json:"body"`
+	Overview string `json:"overview"`
 }
 
 type MovieBlogSticker struct {
@@ -115,6 +116,11 @@ func main() {
 
 
 	cast_resp, err := tmdb.GetPersonByMovieID(choosed_movie.ID)
+	detail_resp, detail_err := tmdb.GetMovieDetails(choosed_movie.ID);
+
+	if(detail_err != nil) {
+		log.Fatal(detail_err.Error());
+	}
 
 
 	if(err != nil) {
@@ -154,8 +160,9 @@ func main() {
 	json_obj.Movie.Release = choosed_movie.ReleaseDate;
 	json_obj.Movie.Title = choosed_movie.OriginalTitle;
 
-	json_obj.Article = MovieBlogArticle{Title: content.Title}
+	json_obj.Article = MovieBlogArticle{Title: content.Title};
 	json_obj.Article.Body = content.Article;
+	json_obj.Article.Overview = detail_resp.Overview;
 	
 	json_obj.Stickers = []MovieBlogSticker{};
 

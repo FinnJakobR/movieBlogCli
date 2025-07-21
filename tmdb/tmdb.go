@@ -69,6 +69,32 @@ func GET(url string, params []string, api_key string) (string, error) {
 
 }
 
+func GetMovieDetails(movie_id int) (*MovieDetailResponse, error) {
+
+	api_key := os.Getenv("API_KEY");
+	url := os.Getenv("API_MOVIE_DETAIL_URL");
+	url = strings.ReplaceAll(url, "movie_id", strconv.Itoa(movie_id));
+
+	params := []string{"language=de"};
+	
+	response, err := GET(url, params, api_key); 
+
+	if(err  != nil) {
+		return nil, err;
+	}
+
+	resp := &MovieDetailResponse{};
+
+	json_err := json.Unmarshal([]byte(response), resp);
+
+	
+	if(json_err != nil) {
+		return nil, json_err;
+	};
+
+	return resp, nil;
+
+}
 
 
 func SearchForMovie(movie string) (*MovieResponse, error) {

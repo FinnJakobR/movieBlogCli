@@ -86,10 +86,17 @@ type MovieDetailMovieLanguage struct {
 	Name string `json:"name"`
 }
 
+type MovieDetailCollection struct {
+	ID int `json:"id"`
+	Name string `json:"name"`
+	PosterPath string `json:"poster_path"`
+	BackdropPath string `json:"backdrop_path"`
+}
+
 type MovieDetailResponse struct {
 	Adult bool `json:"adult"`
 	BackdropPath string `json:"backdrop_path"`
-	BelongsToCollection string `json:"belongs_to_collection"`
+	BelongsToCollection MovieDetailCollection `json:"belongs_to_collection"`
 	Budget int `json:"budget"`
 	Genres  []MovieDetailGenres `json:"genres"`
 	Homepage string `json:"homepage"`
