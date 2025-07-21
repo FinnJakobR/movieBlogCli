@@ -21,6 +21,7 @@ type ParsedMovieFile struct {
 	Rating   int             `yaml:"rating"`
 	Stickers []MovieStickers `yaml:"stickers"`
 	Article string
+	Author string `yalm:"author"`
 }
 
 
