@@ -70,6 +70,7 @@ func GET(url string, params []string, api_key string) (string, error) {
 }
 
 
+
 func SearchForMovie(movie string) (*MovieResponse, error) {
 
 	api_key := os.Getenv("API_KEY");
