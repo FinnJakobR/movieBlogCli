@@ -32,6 +32,7 @@ type MovieBlogArticle struct {
 	Title string `json:"title"`
 	Body string `json:"body"`
 	Overview string `json:"overview"`
+	Author string `json:"author"`
 }
 
 type MovieBlogSticker struct {
@@ -163,6 +164,7 @@ func main() {
 	json_obj.Article = MovieBlogArticle{Title: content.Title};
 	json_obj.Article.Body = content.Article;
 	json_obj.Article.Overview = detail_resp.Overview;
+	json_obj.Article.Author = content.Author;
 	
 	json_obj.Stickers = []MovieBlogSticker{};
 
