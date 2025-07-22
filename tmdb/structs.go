@@ -120,3 +120,9 @@ type MovieDetailResponse struct {
 	VoteAverage float64 `json:"vote_average"`
 	VoteCount float64 `json:"vote_count"`
 }
+
+type SaveMovieStruct struct {
+	Movie Movie `json:"movie"`
+	Credits CastRepsonse `json:"credits"`
+	Details MovieDetailResponse `json:"details"`
+}

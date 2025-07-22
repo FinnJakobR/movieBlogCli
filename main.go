@@ -10,6 +10,7 @@ import (
 	"movieBlog/cli/tmdb"
 	"movieBlog/cli/util"
 	"os"
+	p "path"
 	"path/filepath"
 	"strings"
 
@@ -70,7 +71,7 @@ func expandPath(path string) string {
 }
 
 func main() {
-   path, flag_err := cliParser.ParseArgs();
+   path, verbose, flag_err := cliParser.ParseArgs();
    expandedPath := expandPath("~/configs/.movie_blog_env");
    env.Read_env_file(expandedPath);
 
@@ -113,11 +114,16 @@ func main() {
 
 
 	choosed_movie := resp.Results[index];
-
-
-
 	cast_resp, err := tmdb.GetPersonByMovieID(choosed_movie.ID)
 	detail_resp, detail_err := tmdb.GetMovieDetails(choosed_movie.ID);
+
+	if(!*verbose) {
+		save_err := tmdb.SaveTmdbData(p.Dir(*path), &choosed_movie, cast_resp, detail_resp);
+		
+		if(save_err != nil) {
+			log.Fatal(save_err.Error());
+		}
+	}
 
 	if(detail_err != nil) {
 		log.Fatal(detail_err.Error());

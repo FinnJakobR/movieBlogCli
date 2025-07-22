@@ -13,6 +13,8 @@ import (
 )
 
 
+
+
 func POST(path string, jsonBody string, authToken string) (string, error) {
 	// JSON-Body als Reader
 	reqBody := bytes.NewBuffer([]byte(jsonBody))

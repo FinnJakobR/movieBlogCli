@@ -9,16 +9,17 @@ import (
 
 
 
-func ParseArgs() (*string, error){	
-	var pathFlag = flag.String("path", "./", "set a custom Path for uploading the movie data");
+func ParseArgs() (*string, *bool, error){	
+	pathFlag := flag.String("path", "./", "set a custom Path for uploading the movie data");
+	verboseFlag := flag.Bool("verbose", false, "Set verbose to true will not save the tmdb data")
 	flag.Parse()
 
 	_, os_err := os.Open(*pathFlag);
 
 	if(os_err != nil) {
-		return  nil, errors.New("path is not a valid Path");
+		return  nil, nil, errors.New("path is not a valid Path");
 	}
 	
 
-	return pathFlag, nil;
+	return pathFlag, verboseFlag, nil;
 }

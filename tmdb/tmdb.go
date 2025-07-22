@@ -6,10 +6,49 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"strconv"
 	"strings"
 )
 
+func saveTmdbDataInFile(strc any, path string) error {
+
+	str, str_error := json.Marshal(strc);
+
+	if(str_error != nil) {
+		return str_error;
+	}
+
+	write_err := os.WriteFile(path, str, 0755);
+
+	if(write_err != nil) {
+		return  write_err;
+	}
+
+	return nil;
+
+}
+
+func SaveTmdbData(p string, movieSearchResponse *Movie, movieCreditResponse *CastRepsonse, movieDetailResponse *MovieDetailResponse) error{
+
+	save_file_path := path.Join(p, "tmdb_" + strconv.Itoa(movieSearchResponse.ID) + "_data.json");
+	
+
+	save_value := &SaveMovieStruct{};
+
+	save_value.Credits = *movieCreditResponse;
+	save_value.Movie = *movieSearchResponse;
+	save_value.Details = *movieDetailResponse;
+
+	save_err := saveTmdbDataInFile(save_value, save_file_path);
+
+	if(save_err != nil) {
+		return  save_err;
+	}
+
+	return nil;
+
+}
 
 
 
