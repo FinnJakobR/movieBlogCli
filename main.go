@@ -12,6 +12,7 @@ import (
 	"os"
 	p "path"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/manifoldco/promptui"
@@ -26,6 +27,8 @@ type MovieBlogMovie struct {
 	Title string `json:"title"`
 	Release string `json:"release"`
 	Img MovieBlogMovieImage `json:"img"`
+	Runtime int `json:"runtime"`
+	Link string `json:"link"`
 	Rating int `json:"rating"`
 }
 
@@ -166,7 +169,10 @@ func main() {
 	json_obj.Movie.Rating = content.Rating;
 	json_obj.Movie.Release = choosed_movie.ReleaseDate;
 	json_obj.Movie.Title = choosed_movie.OriginalTitle;
+	json_obj.Movie.Runtime = detail_resp.Runtime;
 
+	json_obj.Movie.Link = "https://www.themoviedb.org/movie/" + strconv.Itoa(detail_resp.ID);
+ 
 	json_obj.Article = MovieBlogArticle{Title: content.Title};
 	json_obj.Article.Body = content.Article;
 	json_obj.Article.Overview = detail_resp.Overview;
