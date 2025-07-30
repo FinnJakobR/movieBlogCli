@@ -164,7 +164,7 @@ func main() {
 	json_obj := MovieBlog{};
 	json_obj.Movie = MovieBlogMovie{};
 	image_json_obj := MovieBlogMovieImage{Data: "data:image/jpg;base64," + base64, Name:  image_name + ".jpg"};
-	json_obj.Movie.Img = image_json_obj;
+	json_obj.Movie.Img = image_json_obj; 
 
 	json_obj.Movie.Rating = content.Rating;
 	json_obj.Movie.Release = choosed_movie.ReleaseDate;
@@ -194,7 +194,7 @@ func main() {
 
 	for _, crew := range cast_resp.Crews {
 		names := strings.Split(crew.Name, " ");
-		json_obj.Persons = append(json_obj.Persons, MovieBlogPersons{Firstname: names[0], Surname: names[1], Job: crew.Name})	
+		json_obj.Persons = append(json_obj.Persons, MovieBlogPersons{Firstname: names[0], Surname: names[1], Job: crew.Job})	
 	}
 
 
@@ -204,6 +204,7 @@ func main() {
 	if(json_err != nil) {
 		log.Fatal(json_err.Error());
 	}
+
 
 	upload_resp, upload_err := util.POST(os.Getenv("UPLOAD_URL"), string(parsed_movie_blog), os.Getenv("AUTH_KEY"));
 

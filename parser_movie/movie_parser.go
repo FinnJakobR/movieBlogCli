@@ -2,6 +2,7 @@ package parsermovie
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"strings"
 
@@ -38,13 +39,14 @@ func ExtractHeaderAndContent(content string) (string, string, error) {
 	for i := 1; i < len(lines); i++ {
 	
 		if(lines[i] == "---") {
-			return  strings.Join(lines[1:currentLine - 1], "\n"), strings.Join(lines[currentLine + 1:], "\n"), nil;
+			fmt.Println(strings.Join(lines[1:currentLine], "\n"), strings.Join(lines[currentLine + 1:], "\n"));
+			return  strings.Join(lines[1:currentLine], "\n"), strings.Join(lines[currentLine + 1:], "\n"), nil;
 		}
 		currentLine++;
 		
 	};
 
-	return "", "", errors.New("Unclosed Header");
+	return "", "", errors.New("unclosed Header");
 
 }
 
